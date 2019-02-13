@@ -1,0 +1,60 @@
+<!-- *ngFor="let product of productList" -->
+<ng-container *ngFor="let product of productList">
+
+  <!-- Jumbotron -->
+  <div class="jumbotron product-card">
+
+    <!-- Title -->
+    <h4 class="card-title h4 pb-2 text-center">
+      <strong>{{product.name}}</strong>
+    </h4>
+
+    <!-- Card image -->
+    <div class="product-details clearfix">
+      <div mdbWavesEffect>
+        <img [src]="product.hero.href" width="{{product.hero.width}}" height="{{product.hero.height}}" alt="{{product.hero.alt}}" (click)="showCarousel(product.images)">
+      </div>
+
+      <div>
+        <strong> <h6 class="list-property">PRICE RANGE</h6> {{product.priceRange.selling.low | currency}} - {{product.priceRange.selling.high | currency}} </strong>
+      </div>
+    </div>
+
+    <button type="button" mdbBtn color="primary" class="waves-light" data-toggle="modal" data-target="#basicExample" (click)="showCarousel(product.images)"
+    mdbWavesEffect>Show Images</button>
+    
+  </div>
+  <!-- Jumbotron -->
+
+</ng-container>
+
+
+<div mdbModal #frame="mdbModal" class="modal fade" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+aria-hidden="true">
+<div class="modal-dialog product-images-list" role="document">
+  <div class="modal-content">
+    <!--Header-->
+    <div class="modal-header">
+      <h4 class="modal-title" id="myModalLabel">Your cart</h4>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <!--Body-->
+    <div class="modal-body">
+
+        <mdb-carousel [animation]="'slide'">
+            <ng-container *ngFor="let img of productImages">
+              <mdb-carousel-item>
+                <img class="d-block w-100" [src]="img.href" alt="First slide">
+              </mdb-carousel-item>
+            </ng-container>                
+        </mdb-carousel>
+    </div>
+    <!--Footer-->
+    <div class="modal-footer">
+      <button type="button" mdbBtn color="primary" outline="true" class="waves-light" mdbWavesEffect data-dismiss="modal" (click)="frame.hide()">Close</button>          
+    </div>
+  </div>
+</div>
+</div>
